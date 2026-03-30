@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Login - IoT Security Lab{% endblock %}
+
+{% block content %}
+<div class="auth-form">
+    <h2>Login</h2>
+    <p>Log in to track your learning progress.</p>
+    <form method="POST">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required autofocus>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <p class="auth-switch">Don't have an account? <a href="{{ url_for('main.register') }}">Register</a></p>
+</div>
+{% endblock %}

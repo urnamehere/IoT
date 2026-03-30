@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Labs - IoT Security Lab{% endblock %}
+
+{% block content %}
+<h1>Hands-On Labs</h1>
+<p>Practical exercises you can run locally. Each lab includes step-by-step instructions and expected outcomes.</p>
+
+<div class="module-grid">
+    {% for lab in labs %}
+    <a href="{{ url_for('content.lab_detail', slug=lab.slug) }}" class="module-card lab-card">
+        <h3>{{ lab.title }}</h3>
+        <span class="level-badge level-{{ lab.get('level', 'beginner') | lower }}">
+            {{ lab.get('level', 'Beginner') }}
+        </span>
+        {% if lab.get('estimated_time') %}
+            <span class="time-estimate">{{ lab.estimated_time }}</span>
+        {% endif %}
+        <p>{{ lab.get('description', '') }}</p>
+        {% if lab.get('tools') %}
+        <div class="lab-tools">
+            {% for tool in lab.tools %}
+                <span class="tool-tag">{{ tool }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}
