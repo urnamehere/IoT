@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}IoT Security Learning Tool{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>IoT Security Research Learning Tool</h1>
+    <p class="hero-subtitle">Master IoT security from the ground up. Hands-on labs, real tools, progressive challenges.</p>
+    <div class="hero-actions">
+        <a href="{{ url_for('content.module_list') }}" class="btn btn-primary">Start Learning</a>
+        <a href="{{ url_for('content.lab_list') }}" class="btn btn-secondary">Jump to Labs</a>
+    </div>
+</div>
+
+{% if stats %}
+<div class="stats-bar">
+    <div class="stat-item">
+        <span class="stat-number">{{ stats.modules.completed }}/{{ stats.modules.total }}</span>
+        <span class="stat-label">Modules</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number">{{ stats.labs.completed }}/{{ stats.labs.total }}</span>
+        <span class="stat-label">Labs</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number">{{ stats.challenges.completed }}/{{ stats.challenges.total }}</span>
+        <span class="stat-label">Challenges</span>
+    </div>
+</div>
+{% endif %}
+
+<section class="curriculum-overview">
+    <h2>Curriculum</h2>
+    <div class="module-grid">
+        {% for module in modules %}
+        <a href="{{ url_for('content.module_detail', slug=module.slug) }}" class="module-card">
+            <div class="module-number">{{ module.get('order', loop.index) }}</div>
+            <h3>{{ module.title }}</h3>
+            <span class="level-badge level-{{ module.get('level', 'beginner') | lower }}">
+                {{ module.get('level', 'Beginner') }}
+            </span>
+            <p>{{ module.get('description', '') }}</p>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="quick-links">
+    <h2>Explore</h2>
+    <div class="link-grid">
+        <a href="{{ url_for('content.hardware_list') }}" class="link-card">
+            <h3>Hardware Guides</h3>
+            <p>What to buy, how to use it, and what each tool does for IoT security research.</p>
+        </a>
+        <a href="{{ url_for('content.software_list') }}" class="link-card">
+            <h3>Software Toolkit</h3>
+            <p>Open-source tools for scanning, analysis, reverse engineering, and exploitation.</p>
+        </a>
+        <a href="{{ url_for('content.challenge_list') }}" class="link-card">
+            <h3>CTF Challenges</h3>
+            <p>Test your skills with progressive capture-the-flag style security challenges.</p>
+        </a>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Challenges - IoT Security Lab{% endblock %}
+
+{% block content %}
+<h1>CTF Challenges</h1>
+<p>Test your skills with these capture-the-flag style challenges. Each has a flag to find.</p>
+
+<div class="module-grid">
+    {% for challenge in challenges %}
+    <a href="{{ url_for('content.challenge_detail', slug=challenge.slug) }}" class="module-card challenge-card">
+        <h3>{{ challenge.title }}</h3>
+        <span class="level-badge level-{{ challenge.get('level', 'beginner') | lower }}">
+            {{ challenge.get('level', 'Beginner') }}
+        </span>
+        {% if challenge.get('points') %}
+            <span class="points-badge">{{ challenge.points }} pts</span>
+        {% endif %}
+        <p>{{ challenge.get('description', '') }}</p>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

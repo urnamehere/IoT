@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}My Progress - IoT Security Lab{% endblock %}
+
+{% block content %}
+<h1>My Learning Progress</h1>
+
+<section class="progress-section">
+    <h2>Modules</h2>
+    <div class="progress-list">
+        {% for module in modules %}
+        {% set key = "module:" ~ module.slug %}
+        {% set p = progress_map.get(key) %}
+        <div class="progress-item" data-type="module" data-id="{{ module.slug }}">
+            <div class="progress-info">
+                <a href="{{ url_for('content.module_detail', slug=module.slug) }}">{{ module.title }}</a>
+                <span class="level-badge level-{{ module.get('level', 'beginner') | lower }}">
+                    {{ module.get('level', 'Beginner') }}
+                </span>
+            </div>
+            <select class="progress-select" onchange="updateProgress('module', '{{ module.slug }}', this.value)">
+                <option value="not_started" {{ 'selected' if not p or p.status == 'not_started' }}>Not Started</option>
+                <option value="in_progress" {{ 'selected' if p and p.status == 'in_progress' }}>In Progress</option>
+                <option value="completed" {{ 'selected' if p and p.status == 'completed' }}>Completed</option>
+            </select>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="progress-section">
+    <h2>Labs</h2>
+    <div class="progress-list">
+        {% for lab in labs %}
+        {% set key = "lab:" ~ lab.slug %}
+        {% set p = progress_map.get(key) %}
+        <div class="progress-item" data-type="lab" data-id="{{ lab.slug }}">
+            <div class="progress-info">
+                <a href="{{ url_for('content.lab_detail', slug=lab.slug) }}">{{ lab.title }}</a>
+                <span class="level-badge level-{{ lab.get('level', 'beginner') | lower }}">
+                    {{ lab.get('level', 'Beginner') }}
+                </span>
+            </div>
+            <select class="progress-select" onchange="updateProgress('lab', '{{ lab.slug }}', this.value)">
+                <option value="not_started" {{ 'selected' if not p or p.status == 'not_started' }}>Not Started</option>
+                <option value="in_progress" {{ 'selected' if p and p.status == 'in_progress' }}>In Progress</option>
+                <option value="completed" {{ 'selected' if p and p.status == 'completed' }}>Completed</option>
+            </select>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="progress-section">
+    <h2>Challenges</h2>
+    <div class="progress-list">
+        {% for challenge in challenges %}
+        {% set key = "challenge:" ~ challenge.slug %}
+        {% set p = progress_map.get(key) %}
+        <div class="progress-item" data-type="challenge" data-id="{{ challenge.slug }}">
+            <div class="progress-info">
+                <a href="{{ url_for('content.challenge_detail', slug=challenge.slug) }}">{{ challenge.title }}</a>
+                <span class="level-badge level-{{ challenge.get('level', 'beginner') | lower }}">
+                    {{ challenge.get('level', 'Beginner') }}
+                </span>
+            </div>
+            <select class="progress-select" onchange="updateProgress('challenge', '{{ challenge.slug }}', this.value)">
+                <option value="not_started" {{ 'selected' if not p or p.status == 'not_started' }}>Not Started</option>
+                <option value="in_progress" {{ 'selected' if p and p.status == 'in_progress' }}>In Progress</option>
+                <option value="completed" {{ 'selected' if p and p.status == 'completed' }}>Completed</option>
+            </select>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}{{ metadata.title }} - IoT Security Lab{% endblock %}
+
+{% block content %}
+<article class="content-article lab-article">
+    <header class="article-header">
+        <div class="article-meta">
+            <span class="level-badge level-{{ metadata.get('level', 'beginner') | lower }}">
+                {{ metadata.get('level', 'Beginner') }}
+            </span>
+            {% if metadata.get('estimated_time') %}
+                <span class="time-estimate">{{ metadata.estimated_time }}</span>
+            {% endif %}
+        </div>
+        <h1>{{ metadata.title }}</h1>
+        {% if metadata.get('description') %}
+            <p class="article-description">{{ metadata.description }}</p>
+        {% endif %}
+    </header>
+
+    {% if metadata.get('tools') %}
+    <div class="lab-requirements">
+        <h3>Tools Required</h3>
+        <div class="lab-tools">
+            {% for tool in metadata.tools %}
+                <span class="tool-tag">{{ tool }}</span>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if metadata.get('objectives') %}
+    <div class="lab-objectives">
+        <h3>Objectives</h3>
+        <ul>
+            {% for obj in metadata.objectives %}
+                <li>{{ obj }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <div class="article-body">
+        {{ html | safe }}
+    </div>
+</article>
+{% endblock %}
