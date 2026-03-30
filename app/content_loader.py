@@ -108,7 +108,7 @@ def challenge_detail(slug):
 @content.route("/hardware/")
 def hardware_list():
     items = list_content("hardware")
-    return render_template("modules/index.html", modules=items, title="Hardware Guides")
+    return render_template("modules/index.html", modules=items, title="Hardware Guides", detail_route="content.hardware_detail")
 
 
 @content.route("/hardware/<slug>")
@@ -122,7 +122,7 @@ def hardware_detail(slug):
 @content.route("/software/")
 def software_list():
     items = list_content("software")
-    return render_template("modules/index.html", modules=items, title="Software Tools")
+    return render_template("modules/index.html", modules=items, title="Software Tools", detail_route="content.software_detail")
 
 
 @content.route("/software/<slug>")

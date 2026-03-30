@@ -7,7 +7,7 @@
 
 <div class="module-grid">
     {% for module in modules %}
-    <a href="{{ url_for('content.module_detail', slug=module.slug) }}" class="module-card">
+    <a href="{{ url_for(detail_route | default('content.module_detail'), slug=module.slug) }}" class="module-card">
         <div class="module-number">{{ module.get('order', loop.index) }}</div>
         <h3>{{ module.title }}</h3>
         <span class="level-badge level-{{ module.get('level', 'beginner') | lower }}">
